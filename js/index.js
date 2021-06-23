@@ -28,6 +28,27 @@ window.addEventListener('DOMContentLoaded', () => {
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
   // Basic ideas from https://code-boxx.com/simple-javascript-quiz/
+
+  document.addEventListener('DOMContentLoaded', () =>{
+    const remainingTime = document.querySelector('#time')
+    const startBtn = document.querySelector('#start-btn')
+    
+    let timeleft = 60
+  
+    function countdown () {
+      setinterval(function(){
+        if (timeleft <= 0){
+          clearInterval(timeleft = 0)
+        }
+  
+        remainingTime.innerHTML= timeleft
+        timeleft -=1
+      } , 60)
+  
+    }
+    startBtn.addEventListener('click', countdown)
+  } )
+
   const quizArray = [
     {
       q: 'Which is the third planet from the sun?',
@@ -37,14 +58,36 @@ window.addEventListener('DOMContentLoaded', () => {
     {
       q: 'Which is the largest ocean on Earth?',
       o: ['Atlantic Ocean', 'Indian Ocean', 'Arctic Ocean', 'Pacific Ocean'],
-      a: 3,
+      a: 3,//9ndex 3
     },
     {
       q: 'What is the capital of Australia',
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
-      a: 1,
+      a: 1, //index 1
     },
+    {
+      q: 'What is the largest country in the World',
+      o: ['Australia', 'EE UU', 'Russia', 'Brazil'],
+      a: 2,
+    },
+    {
+      q: 'What is the Capital of Latvia',
+      o: ['Riga', 'Vilna', 'Stonia', 'Minsk'],
+      a: 0,
+    },
+
+
+
   ];
+
+  
+
+
+
+  
+
+    
+  
 
   // function to Display the quiz questions and answers from the object
   const displayQuiz = () => {
@@ -76,15 +119,51 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (quizItem.a == i) {
           //change background color of li element here
+          liElement.style.backgroundColor = "green";
         }
 
         if (radioElement.checked) {
           // code for task 1 goes here
+          if (quizItem.a === i) {
+            score ++
+          }
+
+
         }
       }
     });
+    return score;
   };
 
   // call the displayQuiz function
   displayQuiz();
+  // funtion = reset ();
+  // grabbing the buttons
+  const btnSub = document.getElementById('btnSubmit');
+   const btnRes = document.getElementById('btnReset');
+  const score = document.querySelector("#score");
+
+
+  // event listener for the submit button
+  btnSub.addEventListener("click", (e) => {
+    // prevent form from submitting
+    e.preventDefault();
+    // Calculate the score
+    finalScore = calculateScore();
+    score.innerHTML = `Your score: ${finalScore}`;
+  });
+   // event listener for the reset  button
+  btnRes.addEventListener("click", () => {
+    // refresh the page
+    window.location.reload();
+  });
+
+
+ 
+  
+
+
+
+
+
 });
